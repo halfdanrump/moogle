@@ -1,1 +1,8 @@
 @import "bootstrap";
+
+#maintitle {
+	float:center;
+	&:hover{
+		color:red
+	}
+}
