@@ -22,8 +22,8 @@ def tsvReader(tsv_file):
 
 def insertPostgres(item_list):
 
-	conn = .connect(host='localhost',user='daisuke-amano',passwd='daNo-1983',db='flashpacker_development', charset='utf8')
-	cursor = mydb.cursor()
+	conn = psycopg2.connect("dbname=test host=localhost user=moogle")
+	cursor = conn.cursor()
 
 	column_name = item_list[0]
 	for row in item_list[1:]:
