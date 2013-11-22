@@ -1,8 +1,15 @@
 @import "bootstrap";
 
+body {
+  padding-top: 100px;
+}
+
 #maintitle {
-	float:center;
 	&:hover{
 		color:red
 	}
+}
+
+#search-block{
+	padding-top: 40px;
 }
