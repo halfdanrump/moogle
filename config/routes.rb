@@ -1,4 +1,5 @@
 Moogle::Application.routes.draw do
+  get '/clinics/search' => 'clinics#search'
   resources :clinics
 
   root 'clinics#home'
