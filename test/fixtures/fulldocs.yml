@@ -2,8 +2,8 @@
 
 one:
   code: MyString
-  doc: MyText
+  code: MyString
 
 two:
   code: MyString
-  doc: MyText
+  code: MyString
