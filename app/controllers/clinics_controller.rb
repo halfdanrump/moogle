@@ -1,8 +1,16 @@
 class ClinicsController < ApplicationController
-  before_action :set_clinic, only: [:show, :edit, :update, :destroy]
+  #before_action :set_clinic, only: [:show, :edit, :update, :destroy]
 
   # GET /clinics
   # GET /clinics.json
+  def search
+      @query = params[:q]
+      puts params
+      @docs = Fulldoc.search @query
+      #Clinic.runCommand("text", {search:@query})
+      #Clinic.where("text", {search:@query})
+  end
+
   def index
     @clinics = Clinic.all
   end
