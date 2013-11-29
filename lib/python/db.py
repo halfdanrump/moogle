@@ -2,5 +2,5 @@
 
 from os import listdir
 
-data_files = listdir('../../db/csv/data/')
+data_files = listdir('../../../data/export_data')
 print data_files
