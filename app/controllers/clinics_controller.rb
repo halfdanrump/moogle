@@ -7,6 +7,9 @@ class ClinicsController < ApplicationController
       @query = params[:q]
       puts params
       @docs = Fulldoc.search @query
+      @docs.each{ |c|
+        Clinic.find 
+      }
       #Clinic.runCommand("text", {search:@query})
       #Clinic.where("text", {search:@query})
   end
