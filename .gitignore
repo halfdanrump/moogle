@@ -17,3 +17,5 @@
 
 #Ignore the db config file
 /config/postgres.conf
+/app/models/clinic.rb
+

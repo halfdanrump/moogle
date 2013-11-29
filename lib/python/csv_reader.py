@@ -8,12 +8,9 @@ def createClinicDict(header_list,item_list):
 
 	clinic_dict = {}
 
-	for i in range(len(header_list)):
-		for j in range(len(header_list[i])):
-
-			print header_list[i],item_list[i]
-			
-
+	for file_num in range(len(header_list)):
+		for clinic_num in range(len(header_list[file_num])):
+			print item_list[file_num][clinic_num]
 
 def csvReader(csv_file):
 
@@ -22,10 +19,11 @@ def csvReader(csv_file):
 	with open(csv_file) as csvin:
 		csvin = csv.reader(csvin)
 		for row in csvin:
-			print row
+			#print row
 			item_list.append(row)
 		
-		print item_list	
+		item_len = len(item_list)
+
 		return item_list
 
 def readData(header,data):
@@ -34,9 +32,18 @@ def readData(header,data):
 	header_list = []
 
 	for i in range(len(header)):
-		#print header[i]#,data[i]
-		header_list.append(csvReader(header[i])[0])
-		item_list.append(csvReader(data[i])[0])
+
+		items = []
+		header_list = header_list + csvReader(header[i])[0]
+		csv_list = csvReader(data[i])
+		print len(csv_list)
+		for d in range(len(csv_list)):
+			item_list.append([])
+			item_list[d].append(csv_list[d])
+
+		#item_list.append(items)
+
+	#item_data = [i for s for i in item_list]
 	
 	return header_list,item_list
 
@@ -46,4 +53,5 @@ if __name__ == '__main__':
 	data = glob.glob('../../db/csv/data/*.csv')
 
 	header_list,item_list = readData(header_file,data)
-	createClinicDict(header_list,item_list)
+
+	#createClinicDict(header_list,item_list)
