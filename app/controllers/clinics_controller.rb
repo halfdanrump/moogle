@@ -7,7 +7,7 @@ class ClinicsController < ApplicationController
       @query = params[:q]
       puts params
       #Clinic.runCommand("text", {search:@query})
-      render 'search'
+      #Clinic.where("text", {search:@query})
   end
 
   def index
