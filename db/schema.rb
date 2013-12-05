@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131205090944) do
+ActiveRecord::Schema.define(version: 20131205091858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_trgm"
 
   create_table "clinics", force: true do |t|
     t.string   "code"
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(version: 20131205090944) do
     t.text     "doc"
   end
 
+  add_index "fulldocs", ["doc"], name: "moogle", using: :gist
   add_index "fulldocs", ["search_vector"], name: "fulldocs_search_idx", using: :gin
 
 end
