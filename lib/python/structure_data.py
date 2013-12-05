@@ -1,6 +1,6 @@
 import csv
-data_path = '/Users/halfdan-rump/csv/data/'
-header_path = '/Users/halfdan-rump/csv/headers/'
+data_path = '../../db/csv/data/'
+header_path = '../../db/csv/headers/'
 import pandas
 def read_machines_data():
 
