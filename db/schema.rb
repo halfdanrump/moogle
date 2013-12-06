@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20131205091858) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "fulldoc_id"
   end
 
   create_table "fulldocs", force: true do |t|
@@ -30,7 +29,6 @@ ActiveRecord::Schema.define(version: 20131205091858) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.tsvector "search_vector"
-    t.integer  "clinic_id"
     t.text     "doc"
   end
 

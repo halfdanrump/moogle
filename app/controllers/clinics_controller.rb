@@ -4,7 +4,7 @@ class ClinicsController < ApplicationController
   # GET /clinics
   # GET /clinics.json
   def search
-      @query = params[:q]
+      @query = params[:q].upcase
       puts params
       @docs = Fulldoc.search @query
       
