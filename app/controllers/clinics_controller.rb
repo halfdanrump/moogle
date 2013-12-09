@@ -8,8 +8,6 @@ class ClinicsController < ApplicationController
       puts params
       @docs = Fulldoc.search @query
       
-      #Clinic.runCommand("text", {search:@query})
-      #Clinic.where("text", {search:@query})
   end
 
   def index
@@ -19,6 +17,7 @@ class ClinicsController < ApplicationController
   # GET /clinics/1
   # GET /clinics/1.json
   def show
+    format.html {}
   end
 
   # GET /clinics/new
@@ -32,19 +31,6 @@ class ClinicsController < ApplicationController
 
   # POST /clinics
   # POST /clinics.json
-  def create
-    @clinic = Clinic.new(clinic_params)
-
-    respond_to do |format|
-      if @clinic.save
-        format.html { redirect_to @clinic, notice: 'Clinic was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @clinic }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @clinic.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   # PATCH/PUT /clinics/1
   # PATCH/PUT /clinics/1.json
