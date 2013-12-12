@@ -5,6 +5,8 @@ gem 'pg', '~> 0.17'
 
 gem 'rails', '4.0.0'
 
+gem gem 'rails-i18n', '~> 4.0.0'
+
 #gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
 #gem 'mongoid_fulltext'
 # Use sqlite3 as the database for Active Record

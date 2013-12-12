@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class ClinicsController < ApplicationController
   #before_action :set_clinic, only: [:show, :edit, :update, :destroy]
 
@@ -8,11 +10,13 @@ class ClinicsController < ApplicationController
       puts params
       @docs = Fulldoc.search @query
 
-      c_id = Array.new()
+      p @docs
       @docs.each do |c|
-        c_id.push(c.id)
+        p c.code
+        p c.病院日本語名称
+        p c.病院名カナ
+        p c.住所
       end
-      
       # c_id.each do |id|
       #   @clinic = Clinic.find(params[id])
   end
