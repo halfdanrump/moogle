@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class ClinicsController < ApplicationController
   #before_action :set_clinic, only: [:show, :edit, :update, :destroy]
 
@@ -7,9 +9,16 @@ class ClinicsController < ApplicationController
       @query = params[:q].upcase
       puts params
       @docs = Fulldoc.search @query
-      
-      #Clinic.runCommand("text", {search:@query})
-      #Clinic.where("text", {search:@query})
+
+      p @docs
+      @docs.each do |c|
+        p c.code
+        p c.病院日本語名称
+        p c.病院名カナ
+        p c.住所
+      end
+      # c_id.each do |id|
+      #   @clinic = Clinic.find(params[id])
   end
 
   def index
@@ -19,6 +28,7 @@ class ClinicsController < ApplicationController
   # GET /clinics/1
   # GET /clinics/1.json
   def show
+    format.html {}
   end
 
   # GET /clinics/new
@@ -32,19 +42,6 @@ class ClinicsController < ApplicationController
 
   # POST /clinics
   # POST /clinics.json
-  def create
-    @clinic = Clinic.new(clinic_params)
-
-    respond_to do |format|
-      if @clinic.save
-        format.html { redirect_to @clinic, notice: 'Clinic was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @clinic }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @clinic.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   # PATCH/PUT /clinics/1
   # PATCH/PUT /clinics/1.json
