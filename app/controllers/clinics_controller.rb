@@ -7,7 +7,14 @@ class ClinicsController < ApplicationController
       @query = params[:q].upcase
       puts params
       @docs = Fulldoc.search @query
+
+      c_id = Array.new()
+      @docs.each do |c|
+        c_id.push(c.id)
+      end
       
+      # c_id.each do |id|
+      #   @clinic = Clinic.find(params[id])
   end
 
   def index
