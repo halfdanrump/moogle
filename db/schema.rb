@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131206064554) do
+ActiveRecord::Schema.define(version: 20131212043858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,12 +22,14 @@ ActiveRecord::Schema.define(version: 20131206064554) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "fulldoc_id"
   end
 
   create_table "fulldocs", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.tsvector "search_vector"
+    t.integer  "clinic_id"
     t.text     "doc"
     t.string   "常勤歯科医師数"
     t.string   "特定機能病院"
@@ -35,7 +37,6 @@ ActiveRecord::Schema.define(version: 20131206064554) do
     t.string   "特定特別医療法人"
     t.string   "市区郡"
     t.string   "病院日本語名称"
-    t.string   "FAX番号"
     t.string   "電話番号"
     t.string   "医療従事者総数"
     t.string   "都道府県"
@@ -51,9 +52,11 @@ ActiveRecord::Schema.define(version: 20131206064554) do
     t.string   "住所"
     t.string   "救急告示病院"
     t.string   "地域医療支援"
-    t.string   "departments"
-    t.string   "machines"
+    t.text     "departments"
+    t.text     "machines"
     t.integer  "code"
+    t.string   "fax番号"
+    t.text     "facilities"
   end
 
   add_index "fulldocs", ["code"], name: "index_fulldocs_on_code", unique: true, using: :btree
