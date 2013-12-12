@@ -22,14 +22,12 @@ ActiveRecord::Schema.define(version: 20131206064554) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "fulldoc_id"
   end
 
   create_table "fulldocs", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.tsvector "search_vector"
-    t.integer  "clinic_id"
     t.text     "doc"
     t.string   "常勤歯科医師数"
     t.string   "特定機能病院"

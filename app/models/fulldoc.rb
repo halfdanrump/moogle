@@ -5,7 +5,7 @@ class Fulldoc < ActiveRecord::Base
 	def self.search(terms = "")
 	    sanitized = sanitize_sql_array(["to_tsquery('english', ?)", terms.gsub(/\s/,"+")])
 	    #Fulldoc.where("search_vector @@ #{sanitized}")
-	    Fulldoc.where('doc LIKE ?', '%'+ terms +'%')
+		Fulldoc.where('doc LIKE ?', '%'+ terms +'%')
   end
 
   has_one :clinic
