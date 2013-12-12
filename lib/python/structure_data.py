@@ -104,9 +104,9 @@ def read_all_files():
 	all_dicts = list()
 	
 	all_dicts.append(read_data_as_is('B_01_byouin_header.csv', 'B_01.csv', rightmost_column = 22))
-	#all_dicts.append(read_boolean_data('departments', 'B_02_shinsatsu_header.csv', 'B_02.csv'))
-	#all_dicts.append(read_boolean_data('facilities', 'B_03_iryo_header.csv', 'B_03.csv'))
-	#all_dicts.append(read_boolean_data('machines', 'B_10_shinryoukiki_header.csv', 'B_10.csv'))
+	all_dicts.append(read_boolean_data('departments', 'B_02_shinsatsu_header.csv', 'B_02.csv'))
+	all_dicts.append(read_boolean_data('facilities', 'B_03_iryo_header.csv', 'B_03.csv'))
+	all_dicts.append(read_boolean_data('machines', 'B_10_shinryoukiki_header.csv', 'B_10.csv'))
 	return all_dicts
 	
 
@@ -115,32 +115,30 @@ def read_all_files():
 
 
 def store_all_rows(cursor, merged_dicts):
-	for row_dict in merged_dicts:
-		#print row_dict
-		for column_name, value in row_dict.items():
-			print column_name, value
-			query = "INSERT INTO fulldocs(%s) VALUES ('%s')" % (column_name.upper(), value)	
-			print query
-			cursor.execute(query)
+	
+	for i, row_dict in enumerate(merged_dicts):
+		print i
+		#for i, (column_name, value) in enumerate(row_dict.items()):
+		#	query = "INSERT INTO fulldocs(%s) VALUES ('%s')" % (column_name.upper(), value)	
+		#	print query
+		#	#cursor.execute(query)
+		#for i, (column_name, value) in enumerate(row_dict.items()):
+		full_doc = ','.join([str(v) for v in row_dict.values()])
+		columns = ','.join(row_dict.keys()) + ',doc'
+		values = "'" + "','".join([str(v) for v in row_dict.values()]) + "','%s'"%full_doc
+		query = "INSERT INTO fulldocs(%s) VALUES (%s)" % (columns, values)
+		print query
+		cursor.execute(query)
 
-
-def test():	
+def transfer_all_data():	
 	conn = psycopg2.connect("dbname=moogle host=localhost user=moogle")
 	cursor = conn.cursor()
 	all_dicts = read_all_files()
 	merged_dicts = merge_all_dicts(all_dicts)
 	store_all_rows(cursor, merged_dicts)
 	#return all_dicts, merged_dicts
-	#conn.commit()
-	#cursor.close()
-
-if __name__ == "__main__":
-	#conn = psycopg2.connect("dbname=moogle host=localhost user=moogle")
-	#cursor = conn.cursor()
-	conn = psycopg2.connect("dbname=moogle host=localhost user=moogle")
-	cursor = conn.cursor()
-	all_dicts = read_all_files()
-	store_all_rows(cursor, all_dicts)
 	conn.commit()
 	cursor.close()
 
+if __name__ == "__main__":
+	transfer_all_data()
