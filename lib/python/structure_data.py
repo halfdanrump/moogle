@@ -72,32 +72,7 @@ def merge_all_dicts(list_of_dicts):
 					row_dict[column] = content
 		all_rows.append(row_dict)
 	return all_rows
-			
-			
 
-def make_fulldoc(column_dict, cursor):
-	max_n_clinics = 0
-	### Pick list with the most clinics
-	for column_name, data_dict in column_dict.items():
-		if len(data_dict.keys()) > max_n_clinics:
-			max_n_clinics = len(data_dict.keys())
-			largest_dict = data_dict
-
-	### Iterate over list with most clinics and collect data for each clinics from the various dictionaries
-	c_codes = largest_dict.keys()
-	for code in c_codes:
-		#print code
-		row = list(code)		
-		for column_name, data_dict in column_dict.items():
-			print column_name
-			try:
-				row.append(data_dict[code])
-			except KeyError:
-				pass
-		full_doc = " ".join(row)	
-		query = "INSERT INTO fulldocs(doc) VALUES ('%s')" % (full_doc)	
-		cursor.execute(query)
-	
 
 
 def read_all_files():
