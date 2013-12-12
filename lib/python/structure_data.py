@@ -6,10 +6,6 @@ header_path = '../../db/csv/headers/'
 
 
 
-def store_dictionary_as_row_in_database(cursor, dictionary):
-	for column, data in dictionary:
-		query = "INSERT INTO fulldocs(%s) VALUES ('%s')" % (column, data)	
-		cursor.execute(query)
 
 def read_csv(header_file, data_file):
 	full_header_path = header_path + header_file
@@ -23,7 +19,7 @@ def read_csv(header_file, data_file):
 	
 	#n_rows = data.shape[0]
 	n_columns = data.shape[1]
-	print n_columns
+	#print n_columns
 	c_codes = data.iloc[:,0]
 	misc = data.iloc[:,n_columns-1]
 
@@ -67,12 +63,12 @@ def merge_all_dicts(list_of_dicts):
 	c_codes = largest_dict.keys()
 	all_rows = list()
 	for code in c_codes:
-		print code
+		#print code
 		row_dict = {'code':code}
 		for data_dict in list_of_dicts:
 			if data_dict.has_key(code):
 				for column, content in data_dict[code].items():
-					print column
+					#print column
 					row_dict[column] = content
 		all_rows.append(row_dict)
 	return all_rows
@@ -90,7 +86,7 @@ def make_fulldoc(column_dict, cursor):
 	### Iterate over list with most clinics and collect data for each clinics from the various dictionaries
 	c_codes = largest_dict.keys()
 	for code in c_codes:
-		print code
+		#print code
 		row = list(code)		
 		for column_name, data_dict in column_dict.items():
 			print column_name
@@ -98,27 +94,45 @@ def make_fulldoc(column_dict, cursor):
 				row.append(data_dict[code])
 			except KeyError:
 				pass
-		full_doc = " ".join(row)
+		full_doc = " ".join(row)	
 		query = "INSERT INTO fulldocs(doc) VALUES ('%s')" % (full_doc)	
 		cursor.execute(query)
 	
-def store_all_rows(cursor, all_dicts):
-	for row in merge_all_dicts(all_dicts):
-		store_dictionary_as_row_in_databaserow_in_database(cursor, row)
 
 
 def read_all_files():
 	all_dicts = list()
 	
 	all_dicts.append(read_data_as_is('B_01_byouin_header.csv', 'B_01.csv', rightmost_column = 22))
-	all_dicts.append(read_boolean_data('departments', 'B_02_shinsatsu_header.csv', 'B_02.csv'))
+	#all_dicts.append(read_boolean_data('departments', 'B_02_shinsatsu_header.csv', 'B_02.csv'))
+	#all_dicts.append(read_boolean_data('facilities', 'B_03_iryo_header.csv', 'B_03.csv'))
+	#all_dicts.append(read_boolean_data('machines', 'B_10_shinryoukiki_header.csv', 'B_10.csv'))
 	return all_dicts
-	#all_columns['facilities'] = read_boolean_data('B_03_iryo_header.csv', 'B_03.csv')
-	#all_columns['machines'] = read_boolean_data('B_10_shinryoukiki_header.csv', 'B_10.csv')
+	
 
 	
 	#make_fulldoc(all_columns, cursor)
-	
+
+
+def store_all_rows(cursor, merged_dicts):
+	for row_dict in merged_dicts:
+		#print row_dict
+		for column_name, value in row_dict.items():
+			print column_name, value
+			query = "INSERT INTO fulldocs(%s) VALUES ('%s')" % (column_name.upper(), value)	
+			print query
+			cursor.execute(query)
+
+
+def test():	
+	conn = psycopg2.connect("dbname=moogle host=localhost user=moogle")
+	cursor = conn.cursor()
+	all_dicts = read_all_files()
+	merged_dicts = merge_all_dicts(all_dicts)
+	store_all_rows(cursor, merged_dicts)
+	#return all_dicts, merged_dicts
+	#conn.commit()
+	#cursor.close()
 
 if __name__ == "__main__":
 	#conn = psycopg2.connect("dbname=moogle host=localhost user=moogle")
