@@ -104,7 +104,7 @@ def make_fulldoc(column_dict, cursor):
 	
 def store_all_rows(cursor, all_dicts):
 	for row in merge_all_dicts(all_dicts):
-		store_dictionary_as_row_in_database(cursor, row)
+		store_dictionary_as_row_in_databaserow_in_database(cursor, row)
 
 
 def read_all_files():
@@ -119,7 +119,6 @@ def read_all_files():
 	
 	#make_fulldoc(all_columns, cursor)
 	
-
 
 if __name__ == "__main__":
 	#conn = psycopg2.connect("dbname=moogle host=localhost user=moogle")
