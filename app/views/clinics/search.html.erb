@@ -9,12 +9,23 @@
 
 <p><%= @docs.count %> 件の検索結果があります。</p>
 
-
-<table>
+<table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>病院名</th>
+          <th>住所</th>
+          <th>電話番号</th>
+          <th>ホームページアドレス</th>
+        </tr>
+      </thead>
+      <tbody>
 		<% @docs.each do |c_id| %>
       		<tr>
-      			<td><%= c_id['code'] %></td>
-      			<td><%= c_id['住所'] %></td>
+      			<td nowrap><%= c_id['病院日本語名称'] %></td>
+      			<td nowrap><%= c_id['郵便番号'] %> <%= c_id['都道府県'] %><%= c_id['住所'] %></td>
+      			<td nowrap><%= c_id['電話番号'] %></td>
+      			<td nowrap><%= c_id['ホームページアドレス'] %></td>
       		</tr>
       	<% end %>
+      </tbody>
 </table>
